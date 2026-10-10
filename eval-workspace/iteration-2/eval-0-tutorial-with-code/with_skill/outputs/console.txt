@@ -1,0 +1,11 @@
+✅ tutorial_with_code.md → tutorial_with_code.html
+   主题 蓝调 · 科技清晰 ｜ 正文 734 字 ｜ 标题 4 ｜ 公式 0 ｜ 图片 0 ｜ callout 3 ｜ 框 7
+   校验：14/14 通过
+   已写出：tutorial_with_code.html，tutorial_with_code.fragment.html，tutorial_with_code.zhihu.md，tutorial_with_code.txt，tutorial_with_code.report.json
+
+📋 下一步：
+   1. 浏览器打开 tutorial_with_code.html 预览（宽度已按手机阅读优化）
+   2. Ctrl+A → Ctrl+C
+   3. mp.weixin.qq.com → 新建图文 → Ctrl+V 粘贴
+   4. 若编辑器提示「外部图片」，点一次上传即可进入公众号图库
+   5. 用手机预览确认排版 → 发布

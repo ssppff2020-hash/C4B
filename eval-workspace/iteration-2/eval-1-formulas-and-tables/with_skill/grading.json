@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "text": "no_forbidden_tags",
+      "passed": true,
+      "evidence": "ok"
+    },
+    {
+      "text": "inline_styles_present",
+      "passed": true,
+      "evidence": "ok"
+    },
+    {
+      "text": "formula_rendered_as_png",
+      "passed": true,
+      "evidence": "source 5 formulas, output 5 PNG data URIs"
+    },
+    {
+      "text": "no_svg_images",
+      "passed": true,
+      "evidence": "none"
+    },
+    {
+      "text": "toc_generated",
+      "passed": true,
+      "evidence": "toc present"
+    },
+    {
+      "text": "callout_count_at_least:2",
+      "passed": true,
+      "evidence": "source 2 callouts, rendered 2 (need >=2)"
+    },
+    {
+      "text": "preview_page_validates",
+      "passed": true,
+      "evidence": "preview 14/14 passed"
+    }
+  ]
+}

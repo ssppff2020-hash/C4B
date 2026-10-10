@@ -1,0 +1,28 @@
+{
+  "source": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\article\\songpengfei_C4B_文章源文件.md",
+  "output": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\article\\songpengfei_C4B_output.html",
+  "theme": "蓝调 · 科技清晰",
+  "stats": {
+    "headings": 10,
+    "paragraphs": 75,
+    "images": 1,
+    "formulas": 0,
+    "formulas_as_png": 1,
+    "embedded_images": 1,
+    "callouts": 5,
+    "user_tables": 2,
+    "toc_entries": 10,
+    "characters": 3227,
+    "boxes": 12
+  },
+  "warnings": [],
+  "validation": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "warnings": 0,
+    "ok": true,
+    "failed_ids": [],
+    "warning_ids": []
+  }
+}

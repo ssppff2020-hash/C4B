@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三行命令搭好本地知识库检索</title>
+</head>
+<!--
+  公众号预览页。整页正文就是可粘贴片段：浏览器里 Ctrl+A / Cmd+A 全选，
+  Ctrl+C / Cmd+C，然后粘贴进 mp.weixin.qq.com 的编辑器即可。
+  正文宽度限制在 640px 以内，接近手机阅读宽度，便于做视觉校对。
+  本注释与 <head> 都不会被复制进编辑器。
+-->
+<body style="margin: 0; padding: 0; background-color: #eceff3;">
+<article style="max-width: 640px; margin: 0 auto; padding: 28px 22px 48px 22px;
+                background-color: #ffffff;
+                font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC',
+                             'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;">
+<p style="font-size: 13px; color: #8b93a1; letter-spacing: 0.5px; margin-top: 0; margin-bottom: 22px; text-align: left;">宋鹏飞 · 2026-09-20</p>
+<p style="background-color: #eaf2fe; border-left: 4px solid #1a73e8; color: #76787e; font-size: 15px; line-height: 1.7; padding: 14px 16px; border-radius: 0 6px 6px 0; margin-top: 0; margin-bottom: 24px; text-align: justify;">不装向量数据库，用一份 CSV 加一个脚本，先把检索跑起来再谈优化。</p>
+<table style="border-collapse: collapse; width: 100%; margin-top: 4px; margin-bottom: 28px;"><tr><td style="border: 1px solid #dde6f2; border-radius: 8px; background-color: #eaf2fe; padding: 16px 18px; margin-top: 4px; margin-bottom: 28px;"><p style="font-size: 14px; font-weight: bold; color: #1a73e8; letter-spacing: 1px; margin-top: 0; margin-bottom: 10px;">目 录</p><p style="font-size: 14px; line-height: 1.9; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: left;">1. 为什么要先用 CSV</p><p style="font-size: 14px; line-height: 1.9; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: left;">2. 准备数据</p><p style="font-size: 14px; line-height: 1.9; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: left;">3. 建立索引</p><p style="font-size: 14px; line-height: 1.9; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: left;">4. 验证</p></td></tr></table>
+<h2 style="font-size: 20px; font-weight: bold; line-height: 1.5; color: #12263f; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 32px; margin-bottom: 14px;">为什么要先用 CSV</h2>
+<p style="font-size: 16px; line-height: 1.75; color: #2c3038; text-align: justify; letter-spacing: 0.4px; margin-top: 0; margin-bottom: 16px;">很多人一上手就部署向量数据库，结果卡在环境上三天。<span style="font-weight: bold; color: #12263f;">先用 CSV 验证检索逻辑</span>，确认思路对了再换存储。</p>
+<table style="border-collapse: collapse; width: 100%; margin-top: 18px; margin-bottom: 20px;"><tr><td style="background-color: #eef4fe; border-left: 4px solid #1a73e8; border-radius: 0 6px 6px 0; padding: 14px 16px;"><p style="font-size: 14px; font-weight: bold; color: #12509e; letter-spacing: 0.5px; margin-top: 0; margin-bottom: 8px; line-height: 1.5; text-align: left;">📘 知识点 · 适用场景</p><p style="font-size: 15px; line-height: 1.75; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: justify;">文档总量在几千条以内、单机使用、不需要实时增量的场景。</p></td></tr></table>
+<h2 style="font-size: 20px; font-weight: bold; line-height: 1.5; color: #12263f; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 32px; margin-bottom: 14px;">准备数据</h2>
+<p style="font-size: 16px; line-height: 1.75; color: #2c3038; text-align: justify; letter-spacing: 0.4px; margin-top: 0; margin-bottom: 16px;">把语料整理成三列：</p>
+<table style="border-collapse: collapse; width: 100%; margin-top: 16px; margin-bottom: 20px; font-size: 14px;">
+
+<tr>
+<th style="background-color: #eaf2fe; color: #12263f; font-weight: bold; padding: 9px 10px; text-align: left; border: 1px solid #dde6f2; font-size: 14px; line-height: 1.6;">列名</th>
+<th style="background-color: #eaf2fe; color: #12263f; font-weight: bold; padding: 9px 10px; text-align: left; border: 1px solid #dde6f2; font-size: 14px; line-height: 1.6;">含义</th>
+<th style="background-color: #eaf2fe; color: #12263f; font-weight: bold; padding: 9px 10px; text-align: left; border: 1px solid #dde6f2; font-size: 14px; line-height: 1.6;">示例</th>
+</tr>
+
+
+<tr>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">id</td>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">唯一标识</td>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">doc-001</td>
+</tr>
+<tr>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">text</td>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">正文</td>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">光合作用分两个阶段</td>
+</tr>
+<tr>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">source</td>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">出处</td>
+<td style="padding: 9px 10px; border: 1px solid #dde6f2; color: #2c3038; font-size: 14px; line-height: 1.6;">生物课本 P32</td>
+</tr>
+
+</table>
+<h2 style="font-size: 20px; font-weight: bold; line-height: 1.5; color: #12263f; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 32px; margin-bottom: 14px;">建立索引</h2>
+<table style="border-collapse: collapse; width: 100%; margin-top: 16px; margin-bottom: 20px; background-color: #f5f8fd; border-radius: 6px;"><tr><td style="background-color: #f5f8fd; padding: 14px 16px; border-radius: 6px; border: 1px solid #dde6f2;"><p style="font-size: 11px; color: #8b93a1; letter-spacing: 1px; text-transform: uppercase; margin-top: 0; margin-bottom: 10px; border-bottom: 1px solid #dde6f2; padding-bottom: 6px;">python</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"><span style="color: #008000; font-weight: bold;">import</span> <span style="color: #0000FF; font-weight: bold;">csv</span></p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"> </p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"><span style="color: #008000; font-weight: bold;">def</span> <span style="color: #0000FF;">load</span>(path):</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"> <span style="color: #008000; font-weight: bold;">with</span> <span style="color: #008000;">open</span>(path, encoding<span style="color: #666666;">=</span><span style="color: #BA2121;">"utf-8"</span>) <span style="color: #008000; font-weight: bold;">as</span> f:</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"> <span style="color: #008000; font-weight: bold;">return</span> <span style="color: #008000;">list</span>(csv<span style="color: #666666;">.</span>DictReader(f))</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"> </p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"><span style="color: #008000; font-weight: bold;">def</span> <span style="color: #0000FF;">search</span>(rows, query):</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"> <span style="color: #3D7B7B; font-style: italic;"># 最朴素的相关性：按字符重合度排序</span></p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;">    scored <span style="color: #666666;">=</span> [(<span style="color: #008000;">sum</span>(c <span style="color: #AA22FF; font-weight: bold;">in</span> r[<span style="color: #BA2121;">"text"</span>] <span style="color: #008000; font-weight: bold;">for</span> c <span style="color: #AA22FF; font-weight: bold;">in</span> query), r) <span style="color: #008000; font-weight: bold;">for</span> r <span style="color: #AA22FF; font-weight: bold;">in</span> rows]</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;"> <span style="color: #008000; font-weight: bold;">return</span> [r <span style="color: #008000; font-weight: bold;">for</span> score, r <span style="color: #AA22FF; font-weight: bold;">in</span> <span style="color: #008000;">sorted</span>(scored, reverse<span style="color: #666666;">=</span><span style="color: #008000; font-weight: bold;">True</span>) <span style="color: #008000; font-weight: bold;">if</span> score <span style="color: #666666;">&gt;</span> <span style="color: #666666;">0</span>]</p></td></tr></table>
+<table style="border-collapse: collapse; width: 100%; margin-top: 18px; margin-bottom: 20px;"><tr><td style="background-color: #fdf6e3; border-left: 4px solid #d9910b; border-radius: 0 6px 6px 0; padding: 14px 16px;"><p style="font-size: 14px; font-weight: bold; color: #8a5b00; letter-spacing: 0.5px; margin-top: 0; margin-bottom: 8px; line-height: 1.5; text-align: left;">⚠️ 注意 · 字符重合度不是语义检索</p><p style="font-size: 15px; line-height: 1.75; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: justify;">它匹配的是字面重叠，同义词一律找不到。这只是用来验证「检索」这件事本身跑得通。</p></td></tr></table>
+<h2 style="font-size: 20px; font-weight: bold; line-height: 1.5; color: #12263f; border-left: 4px solid #1a73e8; padding-left: 10px; margin-top: 32px; margin-bottom: 14px;">验证</h2>
+<table style="border-collapse: collapse; width: 100%; margin-top: 16px; margin-bottom: 20px; background-color: #f5f8fd; border-radius: 6px;"><tr><td style="background-color: #f5f8fd; padding: 14px 16px; border-radius: 6px; border: 1px solid #dde6f2;"><p style="font-size: 11px; color: #8b93a1; letter-spacing: 1px; text-transform: uppercase; margin-top: 0; margin-bottom: 10px; border-bottom: 1px solid #dde6f2; padding-bottom: 6px;">bash</p><p style="font-size: 13.5px; line-height: 1.6; color: #1f2937; font-family: Consolas, Monaco, 'Courier New', monospace; margin-top: 0; margin-bottom: 0; white-space: pre-wrap; word-break: break-all; text-align: left; letter-spacing: 0;">python index.py <span style="color: #BA2121;">"光合作用"</span></p></td></tr></table>
+<p style="font-size: 16px; line-height: 1.75; color: #2c3038; text-align: justify; letter-spacing: 0.4px; margin-top: 0; margin-bottom: 16px;">预期输出至少一条命中记录。</p>
+<table style="border-collapse: collapse; width: 100%; margin-top: 18px; margin-bottom: 20px;"><tr><td style="background-color: #fdeceb; border-left: 4px solid #d93025; border-radius: 0 6px 6px 0; padding: 14px 16px;"><p style="font-size: 14px; font-weight: bold; color: #a1251c; letter-spacing: 0.5px; margin-top: 0; margin-bottom: 8px; line-height: 1.5; text-align: left;">🚨 警告 · 不要直接上生产</p><p style="font-size: 15px; line-height: 1.75; color: #2c3038; margin-top: 0; margin-bottom: 0; text-align: justify;">CSV 方案没有并发控制，多人同时写入会丢数据。</p></td></tr></table>
+<table style="border-collapse: collapse; width: 100%; margin-top: 28px; margin-bottom: 28px;"><tr><td style="border-top: 1px solid #dde6f2; padding: 0; height: 0; font-size: 0; line-height: 0;"> </td></tr></table>
+<p style="font-size: 13px; color: #8b93a1; line-height: 1.8; text-align: center; margin-top: 0; margin-bottom: 6px;">宋鹏飞 · 转载请保留作者与出处</p>
+</article>
+</body>
+</html>

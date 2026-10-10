@@ -1,0 +1,17 @@
+{
+  "eval_id": 2,
+  "eval_name": "messy-word-export",
+  "prompt": "这是从 Word 粘出来的 HTML，直接发公众号很难看，帮我整理一下：evals/cases/messy_export.md",
+  "assertions": [
+    "no_forbidden_tags",
+    "inline_styles_present",
+    "h1_demoted",
+    "h4_merged",
+    "cjk_spacing_applied",
+    "remote_image_flagged",
+    "no_markdown_leftovers",
+    "punct_cleaned",
+    "preview_page_validates",
+    "zhihu_export_is_markdown"
+  ]
+}

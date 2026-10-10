@@ -1,0 +1,44 @@
+{
+  "expectations": [
+    {
+      "text": "no_forbidden_tags",
+      "passed": false,
+      "evidence": "<h1>为什么要先用 CSV</h1> | <blockquote> <p>[!NOTE] 适用场景<br/> 文档总量在几千条以内、单机使用、不需要实时增量的场景。</p> </blockquote> | <pre><code class=\"language-python\">import csv def load(path): with open(path, encoding=\"utf-8\") as f: return l | … 共 8 处"
+    },
+    {
+      "text": "inline_styles_present",
+      "passed": false,
+      "evidence": "<p>很多人一上手就部署向量数据库，结果卡在环境上三天。<strong>先用 CSV 验证检索逻辑</strong>，确认思路对了再换存储。</p> | <p>[!NOTE] 适用场景<br/> 文档总量在几千条以内、单机使用、不需要实时增量的场景。</p> | <h2>准备数据</h2> | … 共 22 处"
+    },
+    {
+      "text": "code_lines_preserved",
+      "passed": true,
+      "evidence": "all lines present"
+    },
+    {
+      "text": "callout_count_at_least:3",
+      "passed": false,
+      "evidence": "source 3 callouts, rendered 0 (need >=3)"
+    },
+    {
+      "text": "tables_styled",
+      "passed": false,
+      "evidence": "1 tables, 0 with inline style"
+    },
+    {
+      "text": "no_markdown_leftovers",
+      "passed": false,
+      "evidence": "未转换的提示框：[!NOTE] 适用场景 文档总量在几千条以内、单机使用、不需要实时增量的场景。 | 未转换的提示框：[!WARNING] 字符重合度不是语义检索 它匹配的是字面重叠，同义词一律找不到。这只是用来验证「检索」这件事本身跑得 | 未转换的提示框：[!DANGER] 不要直接上生产 CSV 方案没有并发控制，多人同时写入会丢数据。"
+    },
+    {
+      "text": "punct_cleaned",
+      "passed": true,
+      "evidence": "none"
+    },
+    {
+      "text": "preview_page_validates",
+      "passed": false,
+      "evidence": "preview page was not produced"
+    }
+  ]
+}

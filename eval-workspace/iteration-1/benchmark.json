@@ -1,0 +1,109 @@
+{
+  "skill_name": "wechat-publisher-pro",
+  "iteration": 1,
+  "runs": [
+    {
+      "eval_id": 0,
+      "eval_name": "tutorial-with-code",
+      "assertions": 6,
+      "with_skill": {
+        "passed": 6,
+        "total": 6,
+        "duration_ms": 270,
+        "stats": {
+          "headings": 4,
+          "paragraphs": 30,
+          "images": 0,
+          "formulas": 0,
+          "formulas_as_png": 0,
+          "embedded_images": 0,
+          "callouts": 3,
+          "user_tables": 1,
+          "toc_entries": 4,
+          "characters": 734,
+          "boxes": 7
+        },
+        "warnings": []
+      },
+      "without_skill": {
+        "passed": 1,
+        "total": 6,
+        "duration_ms": 2
+      }
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "formulas-and-tables",
+      "assertions": 6,
+      "with_skill": {
+        "passed": 6,
+        "total": 6,
+        "duration_ms": 279,
+        "stats": {
+          "headings": 3,
+          "paragraphs": 16,
+          "images": 0,
+          "formulas": 5,
+          "formulas_as_png": 5,
+          "embedded_images": 5,
+          "callouts": 2,
+          "user_tables": 1,
+          "toc_entries": 3,
+          "characters": 333,
+          "boxes": 4
+        },
+        "warnings": []
+      },
+      "without_skill": {
+        "passed": 1,
+        "total": 6,
+        "duration_ms": 2
+      }
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "messy-word-export",
+      "assertions": 7,
+      "with_skill": {
+        "passed": 7,
+        "total": 7,
+        "duration_ms": 4,
+        "stats": {
+          "headings": 2,
+          "paragraphs": 7,
+          "images": 1,
+          "formulas": 0,
+          "formulas_as_png": 0,
+          "embedded_images": 0,
+          "callouts": 0,
+          "user_tables": 0,
+          "toc_entries": 0,
+          "characters": 175,
+          "boxes": 1
+        },
+        "warnings": [
+          "1 个 h4/h5/h6 标题已统一为 h3 —— 公众号正文只稳定支持两级小标题",
+          "存在外部图片链接：粘贴后需在公众号编辑器里手动点一次「上传图片」，否则发布时图片会丢失；或改用本地图片配合 --image-mode embed"
+        ]
+      },
+      "without_skill": {
+        "passed": 2,
+        "total": 7,
+        "duration_ms": 1
+      }
+    }
+  ],
+  "summary": {
+    "with_skill": {
+      "passed": 19,
+      "total": 19,
+      "pass_rate": 1.0
+    },
+    "without_skill": {
+      "passed": 4,
+      "total": 19,
+      "pass_rate": 0.2105
+    },
+    "delta": 0.7895
+  }
+}

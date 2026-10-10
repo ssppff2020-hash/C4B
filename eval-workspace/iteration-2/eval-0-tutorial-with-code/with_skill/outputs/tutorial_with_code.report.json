@@ -1,0 +1,28 @@
+{
+  "source": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\skill\\wechat-publisher-pro\\evals\\cases\\tutorial_with_code.md",
+  "output": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\eval-workspace\\iteration-2\\eval-0-tutorial-with-code\\with_skill\\outputs\\tutorial_with_code.html",
+  "theme": "蓝调 · 科技清晰",
+  "stats": {
+    "headings": 4,
+    "paragraphs": 30,
+    "images": 0,
+    "formulas": 0,
+    "formulas_as_png": 0,
+    "embedded_images": 0,
+    "callouts": 3,
+    "user_tables": 1,
+    "toc_entries": 4,
+    "characters": 734,
+    "boxes": 7
+  },
+  "warnings": [],
+  "validation": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "warnings": 0,
+    "ok": true,
+    "failed_ids": [],
+    "warning_ids": []
+  }
+}

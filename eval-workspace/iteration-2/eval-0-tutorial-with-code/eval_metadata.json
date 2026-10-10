@@ -1,0 +1,15 @@
+{
+  "eval_id": 0,
+  "eval_name": "tutorial-with-code",
+  "prompt": "帮我把这篇 Markdown 教程排版成公众号文章：evals/cases/tutorial_with_code.md",
+  "assertions": [
+    "no_forbidden_tags",
+    "inline_styles_present",
+    "code_lines_preserved",
+    "callout_count_at_least:3",
+    "tables_styled",
+    "no_markdown_leftovers",
+    "punct_cleaned",
+    "preview_page_validates"
+  ]
+}

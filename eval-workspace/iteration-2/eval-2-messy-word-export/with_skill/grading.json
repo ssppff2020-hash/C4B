@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "no_forbidden_tags",
+      "passed": true,
+      "evidence": "ok"
+    },
+    {
+      "text": "inline_styles_present",
+      "passed": true,
+      "evidence": "ok"
+    },
+    {
+      "text": "h1_demoted",
+      "passed": true,
+      "evidence": "h1 removed"
+    },
+    {
+      "text": "h4_merged",
+      "passed": true,
+      "evidence": "merged into h3"
+    },
+    {
+      "text": "cjk_spacing_applied",
+      "passed": true,
+      "evidence": "spaced=4, unspaced=0"
+    },
+    {
+      "text": "remote_image_flagged",
+      "passed": true,
+      "evidence": "warning raised"
+    },
+    {
+      "text": "no_markdown_leftovers",
+      "passed": true,
+      "evidence": "ok"
+    },
+    {
+      "text": "punct_cleaned",
+      "passed": true,
+      "evidence": "none"
+    },
+    {
+      "text": "preview_page_validates",
+      "passed": true,
+      "evidence": "preview 13/14 passed"
+    },
+    {
+      "text": "zhihu_export_is_markdown",
+      "passed": true,
+      "evidence": "clean markdown"
+    }
+  ]
+}

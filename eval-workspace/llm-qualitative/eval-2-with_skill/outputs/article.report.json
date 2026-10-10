@@ -1,0 +1,33 @@
+{
+  "source": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\skill\\wechat-publisher-pro\\evals\\cases\\messy_export.md",
+  "output": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\eval-workspace\\llm-qualitative\\eval-2-with_skill\\outputs\\article.html",
+  "theme": "默认 · 中性灰蓝",
+  "stats": {
+    "headings": 2,
+    "paragraphs": 7,
+    "images": 1,
+    "formulas": 0,
+    "formulas_as_png": 0,
+    "embedded_images": 0,
+    "callouts": 0,
+    "user_tables": 0,
+    "toc_entries": 0,
+    "characters": 175,
+    "boxes": 1
+  },
+  "warnings": [
+    "1 个 h4/h5/h6 标题已统一为 h3 —— 公众号正文只稳定支持两级小标题",
+    "存在外部图片链接：粘贴后需在公众号编辑器里手动点一次「上传图片」，否则发布时图片会丢失；或改用本地图片配合 --image-mode embed"
+  ],
+  "validation": {
+    "total": 14,
+    "passed": 13,
+    "failed": 0,
+    "warnings": 1,
+    "ok": true,
+    "failed_ids": [],
+    "warning_ids": [
+      "images_embedded_or_remote_flagged"
+    ]
+  }
+}

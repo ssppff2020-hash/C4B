@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三行命令搭好本地知识库检索</title>
+</head>
+<body style="margin:0;padding:0;background:#EEF1F5;">
+<section id="wx-article" style="max-width:677px;margin:0 auto;padding:26px 18px 40px;background:#FFFFFF;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;font-size:16px;color:#16233A;-webkit-font-smoothing:antialiased;">
+<section style="margin:0 0 10px;font-size:23px;font-weight:800;line-height:1.4;color:#16233A;letter-spacing:.3px;">三行命令搭好本地知识库检索</section><section style="margin:0 0 20px;font-size:13px;color:#9AA4B2;letter-spacing:.5px;">宋鹏飞 · 2026-09-20</section><section style="margin:0 0 28px;padding:15px 17px;background:#EBF3FD;border-radius:10px;"><section style="font-size:11px;font-weight:700;color:#0B63CE;letter-spacing:2px;margin-bottom:7px;">摘 要</section><section style="font-size:14px;line-height:1.75;color:#3D4A5C;">不装向量数据库，用一份 CSV 加一个脚本，先把检索跑起来再谈优化。</section></section><section style="margin:34px 0 18px;"><section style="font-size:19px;font-weight:700;color:#16233A;line-height:1.5;letter-spacing:.3px;">为什么要先用 CSV</section><section style="margin-top:9px;width:36px;height:3px;background:#0B63CE;border-radius:2px;"></section></section><p style="margin:0 0 18px;font-size:16px;line-height:1.78;color:#3D4A5C;letter-spacing:.2px;word-break:break-word;">很多人一上手就部署向量数据库，结果卡在环境上三天。<strong style="font-weight:700;color:#16233A;">先用 CSV 验证检索逻辑</strong>，确认思路对了再换存储。</p><section style="margin:0 0 22px;padding:14px 16px 15px 17px;background:#F1F7FE;border-left:3px solid #5B9BF0;border-radius:0 8px 8px 0;"><section style="font-size:13px;font-weight:700;color:#0B63CE;letter-spacing:.5px;line-height:1.6;">适用场景</section><section style="font-size:14px;line-height:1.75;color:#3D4A5C;margin-top:6px;word-break:break-word;">文档总量在几千条以内、单机使用、不需要实时增量的场景。</section></section><section style="margin:34px 0 18px;"><section style="font-size:19px;font-weight:700;color:#16233A;line-height:1.5;letter-spacing:.3px;">准备数据</section><section style="margin-top:9px;width:36px;height:3px;background:#0B63CE;border-radius:2px;"></section></section><p style="margin:0 0 18px;font-size:16px;line-height:1.78;color:#3D4A5C;letter-spacing:.2px;word-break:break-word;">把语料整理成三列：</p><section style="margin:0 0 24px;overflow:hidden;border-radius:8px;border:1px solid #E6EBF2;"><table style="width:100%;border-collapse:collapse;table-layout:fixed;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;"><tbody><tr style="background:#0B63CE;"><td style="padding:9px 10px;font-size:13px;font-weight:700;color:#FFFFFF;background:#0B63CE;border-right:1px solid rgba(255,255,255,.14);word-break:break-word;line-height:1.6;">列名</td><td style="padding:9px 10px;font-size:13px;font-weight:700;color:#FFFFFF;background:#0B63CE;border-right:1px solid rgba(255,255,255,.14);word-break:break-word;line-height:1.6;">含义</td><td style="padding:9px 10px;font-size:13px;font-weight:700;color:#FFFFFF;background:#0B63CE;border-right:1px solid rgba(255,255,255,.14);word-break:break-word;line-height:1.6;">示例</td></tr><tr><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FAFBFD;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">id</td><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FAFBFD;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">唯一标识</td><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FAFBFD;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">doc-001</td></tr><tr><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FFFFFF;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">text</td><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FFFFFF;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">正文</td><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FFFFFF;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">光合作用分两个阶段</td></tr><tr><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FAFBFD;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">source</td><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FAFBFD;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">出处</td><td style="padding:9px 10px;font-size:13px;color:#3D4A5C;background:#FAFBFD;border-top:1px solid #E6EBF2;border-right:1px solid #E6EBF2;word-break:break-word;line-height:1.6;">生物课本 P32</td></tr></tbody></table></section><section style="margin:34px 0 18px;"><section style="font-size:19px;font-weight:700;color:#16233A;line-height:1.5;letter-spacing:.3px;">建立索引</section><section style="margin-top:9px;width:36px;height:3px;background:#0B63CE;border-radius:2px;"></section></section><section style="margin:0 0 22px;border-radius:10px;overflow:hidden;background:#1B2430;"><section style="padding:9px 16px;font-size:11px;color:#8B9AAC;letter-spacing:1.5px;text-transform:uppercase;font-family:'SF Mono',Menlo,Consolas,'Liberation Mono','Courier New',monospace;border-bottom:1px solid rgba(255,255,255,.08);">PYTHON</section><pre style="margin:0;padding:15px 16px;font-family:'SF Mono',Menlo,Consolas,'Liberation Mono','Courier New',monospace;font-size:13px;line-height:1.72;color:#E6EDF3;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;letter-spacing:0;">import csv
+
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+def search(rows, query):
+    # 最朴素的相关性：按字符重合度排序
+    scored = [(sum(c in r["text"] for c in query), r) for r in rows]
+    return [r for score, r in sorted(scored, reverse=True) if score &gt; 0]</pre></section><section style="margin:0 0 22px;padding:14px 16px 15px 17px;background:#FFFAF0;border-left:3px solid #F0B45B;border-radius:0 8px 8px 0;"><section style="font-size:13px;font-weight:700;color:#B45309;letter-spacing:.5px;line-height:1.6;"><span style="display:inline-block;padding:0 6px;font-size:11px;font-weight:700;color:#B45309;border:1px solid #F0B45B;border-radius:4px;line-height:1.7;vertical-align:1px;">注意</span>&nbsp;字符重合度不是语义检索</section><section style="font-size:14px;line-height:1.75;color:#3D4A5C;margin-top:6px;word-break:break-word;">它匹配的是字面重叠，同义词一律找不到。这只是用来验证「检索」这件事本身跑得通。</section></section><section style="margin:34px 0 18px;"><section style="font-size:19px;font-weight:700;color:#16233A;line-height:1.5;letter-spacing:.3px;">验证</section><section style="margin-top:9px;width:36px;height:3px;background:#0B63CE;border-radius:2px;"></section></section><section style="margin:0 0 22px;border-radius:10px;overflow:hidden;background:#1B2430;"><section style="padding:9px 16px;font-size:11px;color:#8B9AAC;letter-spacing:1.5px;text-transform:uppercase;font-family:'SF Mono',Menlo,Consolas,'Liberation Mono','Courier New',monospace;border-bottom:1px solid rgba(255,255,255,.08);">BASH</section><pre style="margin:0;padding:15px 16px;font-family:'SF Mono',Menlo,Consolas,'Liberation Mono','Courier New',monospace;font-size:13px;line-height:1.72;color:#E6EDF3;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;letter-spacing:0;">python index.py "光合作用"</pre></section><p style="margin:0 0 18px;font-size:16px;line-height:1.78;color:#3D4A5C;letter-spacing:.2px;word-break:break-word;">预期输出至少一条命中记录。</p><section style="margin:0 0 22px;padding:14px 16px 15px 17px;background:#FEF4F4;border-left:3px solid #EF5350;border-radius:0 8px 8px 0;"><section style="font-size:13px;font-weight:700;color:#B91C1C;letter-spacing:.5px;line-height:1.6;"><span style="display:inline-block;padding:0 6px;font-size:11px;font-weight:700;color:#B91C1C;border:1px solid #EF5350;border-radius:4px;line-height:1.7;vertical-align:1px;">警告</span>&nbsp;不要直接上生产</section><section style="font-size:14px;line-height:1.75;color:#3D4A5C;margin-top:6px;word-break:break-word;">CSV 方案没有并发控制，多人同时写入会丢数据。</section></section>
+</section>
+<section style="max-width:677px;margin:0 auto;padding:0 18px 40px;background:#EEF1F5;">
+<section style="background:#FFFFFF;border-radius:10px;padding:16px 18px;font-size:13px;line-height:1.8;color:#6B7684;">
+<strong style="color:#16233A;">如何复制到公众号</strong><br>
+1. 用浏览器打开本文件; <br>
+2. 点右上角 <strong>复制到公众号</strong> 按钮 (推荐), 或从大标题开始手动拖选到结尾后 Ctrl+C;<br>
+3. 粘贴到 mp.weixin.qq.com 的正文编辑器。<br>
+<span style="color:#9AA4B2;">说明: 正文顶部已内置大标题和「摘要」卡片, 让内容自成一篇。如果你打算把标题填进编辑器的「标题」栏, 粘贴后把正文顶部那行大标题删掉即可, 避免重复。本页底部的说明块不会被复制按钮选中。</span>
+</section>
+</section>
+<section style="position:fixed;top:18px;right:18px;z-index:99;">
+<button onclick="copyArticle()" style="cursor:pointer;border:0;border-radius:20px;padding:10px 18px;background:#0B63CE;color:#FFFFFF;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(11,99,206,.3);font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;">复制到公众号</button>
+</section>
+<script>
+function copyArticle() {
+  var el = document.getElementById('wx-article');
+  var range = document.createRange();
+  range.selectNodeContents(el);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  try {
+    document.execCommand('copy');
+    var b = document.querySelector('button');
+    b.innerHTML = '已复制 ✓';
+    setTimeout(function () { b.innerHTML = '复制到公众号'; }, 1600);
+  } catch (e) { alert('复制失败, 请手动拖选后 Ctrl+C'); }
+  sel.removeAllRanges();
+}
+</script>
+</body>
+</html>

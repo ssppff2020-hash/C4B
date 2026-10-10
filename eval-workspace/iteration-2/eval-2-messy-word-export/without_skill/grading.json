@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "no_forbidden_tags",
+      "passed": false,
+      "evidence": "<h1>从公众号编辑器复制出来的稿子</h1> | <div class=\"content\"> <p>这段话从 Word 里粘出来,没有空格,标点也是半角的,而且行首有全角空格。</p> <p>比如这句里用Python写第3个脚本需要处理100条数据,你看得出来问题在哪吗 | <style> .article { font-size: 15px; color: #666; } </style> | … 共 4 处"
+    },
+    {
+      "text": "inline_styles_present",
+      "passed": false,
+      "evidence": "<p>这段话从 Word 里粘出来,没有空格,标点也是半角的,而且行首有全角空格。</p> | <p>比如这句里用Python写第3个脚本需要处理100条数据,你看得出来问题在哪吗?</p> | <p>下面这行是外部图片:</p> | … 共 5 处"
+    },
+    {
+      "text": "h1_demoted",
+      "passed": false,
+      "evidence": "h1 survived"
+    },
+    {
+      "text": "h4_merged",
+      "passed": false,
+      "evidence": "h4 handling wrong"
+    },
+    {
+      "text": "cjk_spacing_applied",
+      "passed": false,
+      "evidence": "spaced=1, unspaced=3"
+    },
+    {
+      "text": "remote_image_flagged",
+      "passed": false,
+      "evidence": "no warning in console output"
+    },
+    {
+      "text": "no_markdown_leftovers",
+      "passed": true,
+      "evidence": "ok"
+    },
+    {
+      "text": "punct_cleaned",
+      "passed": false,
+      "evidence": "still half-width: ['来,', '格,', '的,', '据,', '吗?']"
+    },
+    {
+      "text": "preview_page_validates",
+      "passed": false,
+      "evidence": "preview page was not produced"
+    },
+    {
+      "text": "zhihu_export_is_markdown",
+      "passed": false,
+      "evidence": "no zhihu export was written"
+    }
+  ]
+}

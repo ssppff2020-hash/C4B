@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>tutorial_with_code</title></head>
+<body>
+<h1>为什么要先用 CSV</h1>
+<p>很多人一上手就部署向量数据库，结果卡在环境上三天。<strong>先用 CSV 验证检索逻辑</strong>，确认思路对了再换存储。</p>
+<blockquote>
+<p>[!NOTE] 适用场景<br />
+文档总量在几千条以内、单机使用、不需要实时增量的场景。</p>
+</blockquote>
+<h2>准备数据</h2>
+<p>把语料整理成三列：</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>唯一标识</td>
+<td>doc-001</td>
+</tr>
+<tr>
+<td>text</td>
+<td>正文</td>
+<td>光合作用分两个阶段</td>
+</tr>
+<tr>
+<td>source</td>
+<td>出处</td>
+<td>生物课本 P32</td>
+</tr>
+</tbody>
+</table>
+<h2>建立索引</h2>
+<pre><code class="language-python">import csv
+
+def load(path):
+    with open(path, encoding=&quot;utf-8&quot;) as f:
+        return list(csv.DictReader(f))
+
+def search(rows, query):
+    # 最朴素的相关性：按字符重合度排序
+    scored = [(sum(c in r[&quot;text&quot;] for c in query), r) for r in rows]
+    return [r for score, r in sorted(scored, reverse=True) if score &gt; 0]
+</code></pre>
+<blockquote>
+<p>[!WARNING] 字符重合度不是语义检索<br />
+它匹配的是字面重叠，同义词一律找不到。这只是用来验证「检索」这件事本身跑得通。</p>
+</blockquote>
+<h2>验证</h2>
+<pre><code class="language-bash">python index.py &quot;光合作用&quot;
+</code></pre>
+<p>预期输出至少一条命中记录。</p>
+<blockquote>
+<p>[!DANGER] 不要直接上生产<br />
+CSV 方案没有并发控制，多人同时写入会丢数据。</p>
+</blockquote>
+</body></html>

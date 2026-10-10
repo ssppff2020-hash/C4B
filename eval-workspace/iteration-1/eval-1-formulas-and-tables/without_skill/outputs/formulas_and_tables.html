@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>formulas_and_tables</title></head>
+<body>
+<h2>均值</h2>
+<p>样本均值是全体数据的重心：</p>
+<p>$$<br />
+\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i<br />
+$$</p>
+<h2>方差</h2>
+<p>方差衡量离散程度，分母用 $n-1$ 得到无偏估计：</p>
+<p>$$<br />
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(x_i - \bar{x}\right)^2<br />
+$$</p>
+<p>行内的写法是 $s^2$ 或 $\bar{x} \pm s$。</p>
+<h2>三个量的对照</h2>
+<table>
+<thead>
+<tr>
+<th>统计量</th>
+<th>回答的问题</th>
+<th>什么时候会骗你</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>均值</td>
+<td>平均水平是多少</td>
+<td>存在极端值时</td>
+</tr>
+<tr>
+<td>方差</td>
+<td>数据散不散</td>
+<td>单位不同时无法横向比较</td>
+</tr>
+<tr>
+<td>样本量</td>
+<td>结论有多稳</td>
+<td>太小则一切指标都不可靠</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!KEY] 判断顺序<br />
+先看样本量是否够，再看方差是否异常，最后才解读均值。顺序反了，越算越自信。</p>
+<p>[!SUCCESS] 结论<br />
+报均值时必须同时报样本量和方差，否则这个均值没有信息量。</p>
+</blockquote>
+</body></html>

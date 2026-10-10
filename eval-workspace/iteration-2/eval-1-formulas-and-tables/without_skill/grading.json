@@ -1,0 +1,39 @@
+{
+  "expectations": [
+    {
+      "text": "no_forbidden_tags",
+      "passed": false,
+      "evidence": "<blockquote> <p>[!KEY] 判断顺序<br/> 先看样本量是否够，再看方差是否异常，最后才解读均值。顺序反了，越算越自信。</p> <p>[!SUCCESS] 结论<br/> 报均值时必须同时报样本量和"
+    },
+    {
+      "text": "inline_styles_present",
+      "passed": false,
+      "evidence": "<h2>均值</h2> | <p>样本均值是全体数据的重心：</p> | <p>$$<br/> \\bar{x} = \\frac{1}{n}\\sum_{i=1}^{n} x_i<br/> $$</p> | … 共 23 处"
+    },
+    {
+      "text": "formula_rendered_as_png",
+      "passed": false,
+      "evidence": "source 5 formulas, output 0 PNG data URIs"
+    },
+    {
+      "text": "no_svg_images",
+      "passed": true,
+      "evidence": "none"
+    },
+    {
+      "text": "toc_generated",
+      "passed": false,
+      "evidence": "no toc block found"
+    },
+    {
+      "text": "callout_count_at_least:2",
+      "passed": false,
+      "evidence": "source 2 callouts, rendered 0 (need >=2)"
+    },
+    {
+      "text": "preview_page_validates",
+      "passed": false,
+      "evidence": "preview page was not produced"
+    }
+  ]
+}

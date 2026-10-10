@@ -1,0 +1,14 @@
+{
+  "eval_id": 1,
+  "eval_name": "formulas-and-tables",
+  "prompt": "这篇有公式的文章要发公众号，帮我转成公众号格式：evals/cases/formulas_and_tables.md",
+  "assertions": [
+    "no_forbidden_tags",
+    "inline_styles_present",
+    "formula_rendered_as_png",
+    "no_svg_images",
+    "toc_generated",
+    "callout_count_at_least:2",
+    "preview_page_validates"
+  ]
+}

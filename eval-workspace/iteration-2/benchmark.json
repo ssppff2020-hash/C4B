@@ -1,0 +1,70 @@
+{
+  "skill_name": "wechat-publisher-pro",
+  "iteration": 2,
+  "runs": [
+    {
+      "eval_id": 0,
+      "eval_name": "tutorial-with-code",
+      "assertions": 8,
+      "cli_exit_code": 0,
+      "with_skill": {
+        "passed": 8,
+        "total": 8,
+        "duration_ms": 532,
+        "exit_code": 0
+      },
+      "without_skill": {
+        "passed": 2,
+        "total": 8,
+        "duration_ms": 64
+      }
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "formulas-and-tables",
+      "assertions": 7,
+      "cli_exit_code": 0,
+      "with_skill": {
+        "passed": 7,
+        "total": 7,
+        "duration_ms": 785,
+        "exit_code": 0
+      },
+      "without_skill": {
+        "passed": 1,
+        "total": 7,
+        "duration_ms": 2
+      }
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "messy-word-export",
+      "assertions": 10,
+      "cli_exit_code": 0,
+      "with_skill": {
+        "passed": 10,
+        "total": 10,
+        "duration_ms": 420,
+        "exit_code": 0
+      },
+      "without_skill": {
+        "passed": 1,
+        "total": 10,
+        "duration_ms": 1
+      }
+    }
+  ],
+  "summary": {
+    "with_skill": {
+      "passed": 25,
+      "total": 25,
+      "pass_rate": 1.0
+    },
+    "without_skill": {
+      "passed": 4,
+      "total": 25,
+      "pass_rate": 0.16
+    },
+    "delta": 0.84
+  }
+}
