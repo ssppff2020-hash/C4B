@@ -1,0 +1,64 @@
+{
+  "skill_name": "wechat-publisher-pro",
+  "assertions_note": "Every assertion is verified programmatically by scripts/run_eval.py -- no eyeballing. Structural checks come from wechat_validate.py; the eval-specific ones (code_lines_preserved, formula_rendered_as_png, cjk_spacing_applied, ...) are implemented in run_eval.py as pure functions over the rendered fragment.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "tutorial-with-code",
+      "prompt": "帮我把这篇 Markdown 教程排版成公众号文章：evals/cases/tutorial_with_code.md",
+      "expected_output": "一篇可直接粘贴的公众号 HTML：代码块保留每一行、三个 callout 渲染成带边框的方框、表格带表头底色、无违规标签。",
+      "files": [
+        "evals/cases/tutorial_with_code.md"
+      ],
+      "assertions": [
+        "no_forbidden_tags",
+        "inline_styles_present",
+        "code_lines_preserved",
+        "callout_count_at_least:3",
+        "tables_styled",
+        "no_markdown_leftovers",
+        "punct_cleaned",
+        "preview_page_validates"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "formulas-and-tables",
+      "prompt": "这篇有公式的文章要发公众号，帮我转成公众号格式：evals/cases/formulas_and_tables.md",
+      "expected_output": "4 个公式全部渲染成 base64 PNG（不是 SVG、不是原始 $..$ 文本），目录自动生成，表格与重点框样式正确。",
+      "files": [
+        "evals/cases/formulas_and_tables.md"
+      ],
+      "assertions": [
+        "no_forbidden_tags",
+        "inline_styles_present",
+        "formula_rendered_as_png",
+        "no_svg_images",
+        "toc_generated",
+        "callout_count_at_least:2",
+        "preview_page_validates"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "messy-word-export",
+      "prompt": "这是从 Word 粘出来的 HTML，直接发公众号很难看，帮我整理一下：evals/cases/messy_export.md",
+      "expected_output": "script/style/div 被移除，h1 降级为 h2，h4 归并为 h3，中英文之间补空格，半角标点规范化，远程图片被标记出来。",
+      "files": [
+        "evals/cases/messy_export.md"
+      ],
+      "assertions": [
+        "no_forbidden_tags",
+        "inline_styles_present",
+        "h1_demoted",
+        "h4_merged",
+        "cjk_spacing_applied",
+        "remote_image_flagged",
+        "no_markdown_leftovers",
+        "punct_cleaned",
+        "preview_page_validates",
+        "zhihu_export_is_markdown"
+      ]
+    }
+  ]
+}

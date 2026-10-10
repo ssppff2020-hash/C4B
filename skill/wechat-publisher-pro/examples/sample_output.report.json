@@ -1,0 +1,28 @@
+{
+  "source": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\skill\\wechat-publisher-pro\\examples\\sample_article.md",
+  "output": "D:\\高校教师\\文件备份-onedrive\\OneDrive - 郑州西亚斯学院\\桌面\\EduSeed挑战资料包\\挑战_C4B 公众号文章生成技能_bp05rs_完整资料\\C4B\\skill\\wechat-publisher-pro\\examples\\sample_output.html",
+  "theme": "蓝调 · 科技清晰",
+  "stats": {
+    "headings": 10,
+    "paragraphs": 67,
+    "images": 1,
+    "formulas": 3,
+    "formulas_as_png": 4,
+    "embedded_images": 4,
+    "callouts": 9,
+    "user_tables": 1,
+    "toc_entries": 10,
+    "characters": 2315,
+    "boxes": 15
+  },
+  "warnings": [],
+  "validation": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "warnings": 0,
+    "ok": true,
+    "failed_ids": [],
+    "warning_ids": []
+  }
+}
